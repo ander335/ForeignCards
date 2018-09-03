@@ -1,7 +1,6 @@
-package inc.aminkinen.foreigncards.Database
+package inc.aminkinen.foreigncards.database
 
 import android.content.Context
-import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -9,60 +8,51 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class DbHelper(private val mContext: Context) : SQLiteOpenHelper(mContext, DB_NAME, null, DB_VERSION) {
-    private var mDataBase: SQLiteDatabase? = null
+class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) {
     private var mNeedUpdate = false
 
     init {
-        DB_PATH = "/data/data/${mContext.packageName}/databases/$DB_NAME"
+        DB_PATH = "/data/data/${ctx.packageName}/databases/$DB_NAME"
 
-        copyDataBase()
-
-        this.getReadableDatabase();
+        copyDataBase(ctx)
     }
 
     @Throws(IOException::class)
-    fun updateDataBase() {
+    fun updateDataBase(ctx: Context) {
         if (mNeedUpdate) {
             val dbFile = File(DB_PATH)
             if (dbFile.exists())
                 dbFile.delete()
 
-            copyDataBase()
+            copyDataBase(ctx)
 
             mNeedUpdate = false
         }
     }
 
-    private fun checkDataBase(): Boolean {
-        return File(DB_PATH).exists()
-    }
-
-    private fun copyDataBase() {
-        if (checkDataBase())
+    private fun copyDataBase(ctx: Context) {
+        if (File(DB_PATH).exists())
             return;
 
-        this.getReadableDatabase()
-        this.close()
         try {
-            copyDBFile()
+            copyDBFile(ctx)
         } catch (mIOException: IOException) {
             throw Error("ErrorCopyingDataBase")
         }
     }
 
     @Throws(IOException::class)
-    private fun copyDBFile() {
-        val input = mContext.assets.open(DB_NAME)
+    private fun copyDBFile(ctx : Context) {
+        val input = ctx.assets.open(DB_NAME)
         val output = FileOutputStream(DB_PATH)
         val buff = ByteArray(1024)
 
         do {
-            val len = input.read(buff);
+            val len = input.read(buff)
             if (len == 0)
                 break;
 
-            output.write(buff, 0, len);
+            output.write(buff, 0, len)
         } while (true)
 
         output.flush()
@@ -70,21 +60,7 @@ class DbHelper(private val mContext: Context) : SQLiteOpenHelper(mContext, DB_NA
         input.close()
     }
 
-    @Throws(SQLException::class)
-    fun openDataBase(): Boolean {
-        mDataBase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.CREATE_IF_NECESSARY)
-        return mDataBase != null
-    }
-
-    @Synchronized
-    override fun close() {
-        if (mDataBase != null)
-            mDataBase!!.close()
-        super.close()
-    }
-
-    override fun onCreate(db: SQLiteDatabase) {
-
+    override fun onCreate(d: SQLiteDatabase?) {
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

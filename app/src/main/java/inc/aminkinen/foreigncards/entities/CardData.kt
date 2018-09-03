@@ -1,4 +1,4 @@
-package inc.aminkinen.foreigncards.Entities
+package inc.aminkinen.foreigncards.entities
 
 open class CardData(val Word: String = "",
                     val Transl: String = "",

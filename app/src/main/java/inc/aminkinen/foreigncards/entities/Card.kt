@@ -1,4 +1,4 @@
-package inc.aminkinen.foreigncards.Entities
+package inc.aminkinen.foreigncards.entities
 
 class Card(val Id : Int,
            Word: String,

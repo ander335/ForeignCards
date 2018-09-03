@@ -1,31 +1,31 @@
-package inc.aminkinen.foreigncards.Database
+package inc.aminkinen.foreigncards.database
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.DatabaseUtils
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
-import inc.aminkinen.foreigncards.Entities.Card
-import inc.aminkinen.foreigncards.Entities.CardData
-import inc.aminkinen.foreigncards.Entities.Settings
+import inc.aminkinen.foreigncards.entities.Card
+import inc.aminkinen.foreigncards.entities.CardData
+import inc.aminkinen.foreigncards.entities.Settings
 import java.io.IOException
 
 import java.util.ArrayList
 
 class DbProvider(ctx : Context) {
-    val Db: SQLiteDatabase = init(ctx)
+    private val db: SQLiteDatabase = init(ctx)
 
     private fun init(ctx : Context) : SQLiteDatabase {
         val mDBHelper = DbHelper(ctx)
 
         try {
-            mDBHelper.updateDataBase()
+            mDBHelper.updateDataBase(ctx)
         } catch (mIOException: IOException) {
             throw Error("UnableToUpdateDatabase")
         }
 
         try {
-            return mDBHelper.getWritableDatabase()
+            return mDBHelper.writableDatabase
         } catch (mSQLException: SQLException) {
             throw mSQLException
         }
@@ -39,14 +39,14 @@ class DbProvider(ctx : Context) {
         if (c.GroupId >= 0)
             v.put("GroupId", c.GroupId)
 
-        Db.insert("Cards", null, v)
+        db.insert("Cards", null, v)
     }
 
     fun removeCard(id: Int) {
-        Db.execSQL("DELETE FROM Cards WHERE Id = ?", arrayOf<Any>(id))
+        db.execSQL("DELETE FROM Cards WHERE Id = ?", arrayOf<Any>(id))
     }
 
-    fun UpdateCard(c: Card) {
+    fun updateCard(c: Card) {
         val v = ContentValues()
         v.put("Word", c.Word)
         v.put("Transc", c.Transc)
@@ -54,11 +54,11 @@ class DbProvider(ctx : Context) {
         if (c.GroupId >= 0)
             v.put("GroupId", c.GroupId)
 
-        Db.update("Cards", v, "Id = ?", arrayOf(Integer.toString(c.Id)))
+        db.update("Cards", v, "Id = ?", arrayOf(Integer.toString(c.Id)))
     }
 
     fun cardsCount(): Int {
-        return DatabaseUtils.queryNumEntries(Db, "Cards").toInt()
+        return DatabaseUtils.queryNumEntries(db, "Cards").toInt()
     }
 
     fun getCards(groupId: Int?): ArrayList<Card> {
@@ -68,11 +68,11 @@ class DbProvider(ctx : Context) {
         if (groupId != null)
             q = String.format("SELECT * FROM Cards WHERE GroupId = %d", groupId.toInt())
 
-        val c = Db.rawQuery(q, null)
+        val c = db.rawQuery(q, null)
         c.moveToFirst()
         while (!c.isAfterLast) {
             val groupIdx = c.getColumnIndex("GroupId")
-            val groupId = if (c.isNull(groupIdx)) -1 else c.getInt(groupIdx)
+            val gId = if (c.isNull(groupIdx)) -1 else c.getInt(groupIdx)
 
             val a = Card(
                     c.getInt(c.getColumnIndex("Id")),
@@ -80,7 +80,7 @@ class DbProvider(ctx : Context) {
                     c.getString(c.getColumnIndex("Transl")),
                     c.getString(c.getColumnIndex("Transc")),
                     "", // TODO: do example
-                    groupId)
+                    gId)
 
             result.add(a)
             c.moveToNext()
@@ -91,7 +91,7 @@ class DbProvider(ctx : Context) {
     }
 
     fun getSettings(): Settings {
-        val c = Db.rawQuery("SELECT * FROM Settings", null)
+        val c = db.rawQuery("SELECT * FROM Settings", null)
         c.moveToFirst()
 
         val result = Settings(c.getInt(c.getColumnIndex("GroupIdForAdding")))
@@ -104,7 +104,7 @@ class DbProvider(ctx : Context) {
         val v = ContentValues()
         v.put("GroupIdForAdding", s.GroupIdForAdding)
 
-        Db.update("Settings", v, null, null)
+        db.update("Settings", v, null, null)
     }
 
     companion object {
