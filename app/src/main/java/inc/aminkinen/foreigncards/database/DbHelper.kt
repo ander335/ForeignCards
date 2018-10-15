@@ -32,7 +32,7 @@ class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) 
 
     private fun copyDataBase(ctx: Context) {
         if (File(DB_PATH).exists())
-            return;
+            return
 
         try {
             copyDBFile(ctx)
