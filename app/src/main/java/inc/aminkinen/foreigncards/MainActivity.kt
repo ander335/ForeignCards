@@ -1,5 +1,6 @@
 package inc.aminkinen.foreigncards
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         list.setOnItemClickListener { _: AdapterView<*>, view: View, _: Int, _: Long ->
             val textView = view as? TextView ?: return@setOnItemClickListener
             when (textView.text.toString()) {
-                TrainMenuText -> return@setOnItemClickListener // startActivity(Intent(this, BarsikActivity::class.java))
-                AddingMenuText -> return@setOnItemClickListener
+                TrainMenuText -> return@setOnItemClickListener
+                AddingMenuText -> startActivity(Intent(this, AddActivity::class.java))
                 GroupsMenuText -> return@setOnItemClickListener
                 SettingsMenuText -> return@setOnItemClickListener
             }
