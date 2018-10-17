@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ForeignCards</string>
+
+    <!-- common -->
+    <string name="button_close_text">Close</string>
+    <string name="button_add_text">Add</string>
+
+    <!-- activity add -->
+    <string name="activity_add_word_hint">Word</string>
+    <string name="activity_add_translation_hint">Translation</string>
+    <string name="activity_add_transcription_hint">Transcription</string>
 </resources>
