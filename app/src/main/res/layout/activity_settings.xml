@@ -12,22 +12,22 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Group for adding:"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        android:text="@string/activity_settings_group_for_adding_label"
+        app:layout_constraintBottom_toBottomOf="@+id/text_group_for_adding"
+        app:layout_constraintEnd_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_adding"
         app:layout_constraintVertical_bias="0.58000004" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/text_group_for_adding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:layout_marginEnd="53dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        android:inputType="textPersonName|number"
+        app:layout_constraintBottom_toTopOf="@+id/text_group_for_moving_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,10 +38,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Group 1:"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="@+id/editText2"
+        android:text="@string/activity_settings_group_for_moving_1_label"
+        app:layout_constraintBottom_toBottomOf="@+id/text_group_for_moving_1"
+        app:layout_constraintEnd_toStartOf="@+id/text_group_for_moving_1"
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_moving_1"
         app:layout_constraintVertical_bias="0.444" />
 
     <TextView
@@ -51,37 +51,50 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Group 2:"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
-        app:layout_constraintEnd_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
+        android:text="@string/activity_settings_group_for_moving_2_label"
+        app:layout_constraintBottom_toBottomOf="@+id/text_group_for_moving_2"
+        app:layout_constraintEnd_toStartOf="@+id/text_group_for_moving_2"
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_moving_2" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/text_group_for_moving_1"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        android:inputType="textPersonName|number"
+        app:layout_constraintBottom_toTopOf="@+id/text_group_for_moving_2"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_group_for_adding" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/text_group_for_moving_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        android:inputType="textPersonName|number"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_group_for_moving_1" />
+
+    <Button
+        android:id="@+id/sa_button_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/button_close_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.247"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </android.support.constraint.ConstraintLayout>

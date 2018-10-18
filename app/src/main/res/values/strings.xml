@@ -9,4 +9,9 @@
     <string name="activity_add_word_hint">Word</string>
     <string name="activity_add_translation_hint">Translation</string>
     <string name="activity_add_transcription_hint">Transcription</string>
+
+    <!-- activity settings -->
+    <string name="activity_settings_group_for_adding_label">Group for adding:</string>
+    <string name="activity_settings_group_for_moving_1_label">Group for moving 1:</string>
+    <string name="activity_settings_group_for_moving_2_label">Group for moving 2:</string>
 </resources>

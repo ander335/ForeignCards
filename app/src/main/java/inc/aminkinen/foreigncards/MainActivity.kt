@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.TextView
-import inc.aminkinen.foreigncards.database.DbProvider
+import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,17 +22,11 @@ class MainActivity : AppCompatActivity() {
             val textView = view as? TextView ?: return@setOnItemClickListener
             when (textView.text.toString()) {
                 TrainMenuText -> return@setOnItemClickListener
-                AddingMenuText -> goToAdd()
+                AddingMenuText -> startActivity(Intent(this@MainActivity, AddActivity::class.java))
                 GroupsMenuText -> return@setOnItemClickListener
-                SettingsMenuText -> return@setOnItemClickListener
+                SettingsMenuText -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
             }
         }
-    }
-
-    private fun goToAdd() {
-        val i = Intent(this@MainActivity, AddActivity::class.java)
-        i.putExtra("group_id_for_adding", DbProvider.Instance.getSettings().GroupIdForAdding)
-        startActivity(i)
     }
 
     companion object {

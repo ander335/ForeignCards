@@ -15,28 +15,27 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
-        val groupIdForAdding = intent.getIntExtra("group_id_for_adding", 0)
-        Log.i("AddActivity", "Group id for adding: $groupIdForAdding")
-
         val word = findViewById<EditText>(R.id.text_word)
         val transl = findViewById<EditText>(R.id.text_transl)
         val transc = findViewById<EditText>(R.id.text_transc)
 
-        val close = findViewById<View>(R.id.button_close)
+        val close = findViewById<View>(R.id.aa_button_close)
         close.setOnClickListener {
             Log.i("AddActivity", "Close button was clicked")
             goToMain()
         }
 
-        val add = findViewById<View>(R.id.button_add)
+        val add = findViewById<View>(R.id.aa_button_add)
         add.setOnClickListener {
             Log.i("AddActivity", "Add button was clicked")
+            val group = DbProvider.Instance.getSettings().GroupIdForAdding
+
             val c = CardData(
                     word.text.toString(),
                     transl.text.toString(),
                     transc.text.toString(),
                     "", // TODO: example
-                    groupIdForAdding)
+                    group)
 
             Log.i("AddActivity", "Add card: $c")
             DbProvider.Instance.addCard(c)
