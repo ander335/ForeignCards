@@ -1,3 +1,5 @@
 package inc.aminkinen.foreigncards.entities
 
-class Settings(val GroupIdForAdding: Int = -1)
+class Settings(var GroupIdForAdding: Int = -1,
+               var GroupIdForMoving1: Int = -1,
+               var GroupIdForMoving2: Int = -1)

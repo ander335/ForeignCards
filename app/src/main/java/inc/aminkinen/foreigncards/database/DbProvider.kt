@@ -94,7 +94,10 @@ class DbProvider(ctx : Context) {
         val c = db.rawQuery("SELECT * FROM Settings", null)
         c.moveToFirst()
 
-        val result = Settings(c.getInt(c.getColumnIndex("GroupIdForAdding")))
+        val result = Settings(
+                c.getInt(c.getColumnIndex("GroupIdForAdding")),
+                c.getInt(c.getColumnIndex("GroupIdForMoving1")),
+                c.getInt(c.getColumnIndex("GroupIdForMoving2")));
         c.close()
 
         return result
@@ -103,6 +106,8 @@ class DbProvider(ctx : Context) {
     fun updateSettings(s: Settings) {
         val v = ContentValues()
         v.put("GroupIdForAdding", s.GroupIdForAdding)
+        v.put("GroupIdForMoving1", s.GroupIdForMoving1)
+        v.put("GroupIdForMoving2", s.GroupIdForMoving2)
 
         db.update("Settings", v, null, null)
     }
