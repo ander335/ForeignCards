@@ -4,6 +4,11 @@
     <!-- common -->
     <string name="button_close_text">Close</string>
     <string name="button_add_text">Add</string>
+    <string name="button_remove_text">Remove</string>
+    <string name="button_update">Update</string>
+    <string name="button_next">Next</string>
+    <string name="button_prev">Prev</string>
+    <string name="button_show">Show</string>
 
     <!-- activity add -->
     <string name="activity_add_word_hint">Word</string>
@@ -14,4 +19,7 @@
     <string name="activity_settings_group_for_adding_label">Group for adding:</string>
     <string name="activity_settings_group_for_moving_1_label">Group for moving 1:</string>
     <string name="activity_settings_group_for_moving_2_label">Group for moving 2:</string>
+
+    <!-- activity train -->
+    <string name="at_button_move_to">Move to </string>
 </resources>

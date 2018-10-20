@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         val list = findViewById<ListView>(R.id._main_list)
 
         list.adapter = ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, arrayOf(TrainMenuText, AddingMenuText, GroupsMenuText, SettingsMenuText))
+                android.R.layout.simple_list_item_1,
+                arrayOf(TrainMenuText, AddingMenuText, GroupsMenuText, SettingsMenuText))
 
         list.setOnItemClickListener { _: AdapterView<*>, view: View, _: Int, _: Long ->
             val textView = view as? TextView ?: return@setOnItemClickListener
