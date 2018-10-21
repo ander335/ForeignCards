@@ -96,6 +96,7 @@ class DbProvider(ctx : Context) {
 
         val result = Settings(
                 c.getInt(c.getColumnIndex("GroupIdForAdding")),
+                c.getInt(c.getColumnIndex("GroupIdForTraining")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving1")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving2")));
         c.close()
@@ -106,6 +107,7 @@ class DbProvider(ctx : Context) {
     fun updateSettings(s: Settings) {
         val v = ContentValues()
         v.put("GroupIdForAdding", s.GroupIdForAdding)
+        v.put("GroupIdForTraining", s.GroupIdForTraining)
         v.put("GroupIdForMoving1", s.GroupIdForMoving1)
         v.put("GroupIdForMoving2", s.GroupIdForMoving2)
 
@@ -114,7 +116,7 @@ class DbProvider(ctx : Context) {
 
     companion object {
         private object Holder { var instance : DbProvider? = null }
-        val Instance : DbProvider by lazy { Holder.instance ?: throw Exception("Processor wasn't initialized!") }
+        val Instance : DbProvider by lazy { Holder.instance ?: throw Exception("Provider wasn't initialized!") }
 
         fun init(ctx : Context) {
             if (Holder.instance != null)

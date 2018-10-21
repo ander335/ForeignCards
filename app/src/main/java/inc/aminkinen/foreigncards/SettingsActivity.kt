@@ -34,16 +34,23 @@ class SettingsActivity : AppCompatActivity() {
         val settings = db.getSettings()
 
         val adding = findViewById<EditText>(R.id.text_group_for_adding)
+        val training = findViewById<EditText>(R.id.text_group_for_training)
         val moving1 = findViewById<EditText>(R.id.text_group_for_moving_1)
         val moving2 = findViewById<EditText>(R.id.text_group_for_moving_2)
 
         adding.setText("${settings.GroupIdForAdding}")
+        training.setText("${settings.GroupIdForTraining}")
         moving1.setText("${settings.GroupIdForMoving1}")
         moving2.setText("${settings.GroupIdForMoving2}")
 
         adding.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
             Log.i("SettingsActivity", "Change adding group: $g (old: ${s.GroupIdForAdding})")
             s.GroupIdForAdding = g
+            s
+        })
+        training.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+            Log.i("SettingsActivity", "Change training group: $g (old: ${s.GroupIdForTraining})")
+            s.GroupIdForTraining = g
             s
         })
         moving1.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->

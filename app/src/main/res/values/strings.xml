@@ -17,9 +17,11 @@
 
     <!-- activity settings -->
     <string name="activity_settings_group_for_adding_label">Group for adding:</string>
+    <string name="activity_settings_group_for_training_label">Group for training:</string>
     <string name="activity_settings_group_for_moving_1_label">Group for moving 1:</string>
     <string name="activity_settings_group_for_moving_2_label">Group for moving 2:</string>
 
     <!-- activity train -->
     <string name="at_button_move_to">Move to </string>
+    <string name="at_button_move_to_template">Move to %d</string>
 </resources>

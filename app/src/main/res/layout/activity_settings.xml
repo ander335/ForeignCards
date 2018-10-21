@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName|number"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
@@ -88,13 +88,35 @@
         android:id="@+id/sa_button_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/button_close_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/activity_settings_group_for_training_label"
+        app:layout_constraintBottom_toBottomOf="@+id/text_group_for_training"
+        app:layout_constraintEnd_toStartOf="@+id/text_group_for_training"
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_training" />
+
+    <EditText
+        android:id="@+id/text_group_for_training"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_group_for_moving_2" />
 
 </android.support.constraint.ConstraintLayout>
