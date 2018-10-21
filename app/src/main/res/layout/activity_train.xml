@@ -164,4 +164,52 @@
         app:layout_constraintTop_toTopOf="@+id/at_button_close"
         app:layout_constraintVertical_bias="1.0" />
 
+    <SeekBar
+        android:id="@+id/seek_bar_position"
+        android:layout_width="0dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_transl"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_transl"
+        app:layout_constraintTop_toBottomOf="@+id/at_button_show" />
+
+    <TextView
+        android:id="@+id/text_num_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/text_num_curr"
+        app:layout_constraintStart_toStartOf="@+id/seek_bar_position"
+        app:layout_constraintTop_toTopOf="@+id/text_num_curr"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_num_curr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seek_bar_position"
+        app:layout_constraintEnd_toEndOf="@+id/seek_bar_position"
+        app:layout_constraintStart_toStartOf="@+id/seek_bar_position" />
+
+    <TextView
+        android:id="@+id/text_num_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="158"
+        app:layout_constraintBottom_toBottomOf="@+id/text_num_curr"
+        app:layout_constraintEnd_toEndOf="@+id/seek_bar_position"
+        app:layout_constraintTop_toTopOf="@+id/text_num_curr"
+        app:layout_constraintVertical_bias="0.0" />
+
 </android.support.constraint.ConstraintLayout>
