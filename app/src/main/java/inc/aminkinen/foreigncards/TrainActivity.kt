@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import inc.aminkinen.foreigncards.database.DbProvider
@@ -18,12 +19,21 @@ class TrainActivity : AppCompatActivity() {
     private val _cards : Navigator = Navigator(this, _db.getCards(_settings.GroupIdForTraining))
     private val _currCard : Card get() = _cards.currCard
 
+    private val _word = findViewById<EditText>(R.id.text_word)
+    private val _transl = findViewById<EditText>(R.id.text_transl)
+    private val _transc = findViewById<EditText>(R.id.text_transc)
+    private val _group = findViewById<EditText>(R.id.text_group)
+
+    private var _wasShowed : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_train)
 
         _cards.setup()
         setupMoving()
+        setupShowing()
+        setupUpdating()
 
         val close = findViewById<Button>(R.id.at_button_close)
         close.setOnClickListener {
@@ -46,16 +56,42 @@ class TrainActivity : AppCompatActivity() {
             Log.i("TrainActivity", "Move button was clicked, move to $group")
             _currCard.GroupId = group
             _db.updateCard(_currCard)
+
+            _cards.next()
         }
 
         move1.setOnClickListener { moveFunc(group1) }
         move2.setOnClickListener { moveFunc(group2) }
+    }
 
-        // TODO: go on
+    private fun setupUpdating() {
+        val update = findViewById<Button>(R.id.at_button_update)
+        update.setOnClickListener {
+            _currCard.Word = _word.text.toString()
+            if (_wasShowed) {
+                _currCard.Transl = _transl.text.toString()
+                _currCard.Transc = _transc.text.toString()
+            }
+            if (!_group.text.toString().isEmpty())
+                _currCard.GroupId = Integer.parseInt(_group.text.toString())
+
+            _db.updateCard(_currCard)
+        }
+    }
+
+    private fun setupShowing() {
+        val show = findViewById<Button>(R.id.at_button_show)
+        show.setOnClickListener {
+            _transl.setText(_currCard.Transl)
+            _transc.setText(_currCard.Transc)
+            _wasShowed = true
+        }
     }
 
     private fun onCurrCardChanged() {
-        // TODO: setup curr cards
+        _word.setText(_currCard.Word)
+        _group.setText(_currCard.GroupId.toString())
+        _wasShowed = false
     }
 
     private fun goToMain() {
@@ -81,17 +117,51 @@ class TrainActivity : AppCompatActivity() {
         private val _buttonNext = _ctx.findViewById<Button>(R.id.at_button_next)
 
         fun setup() {
-            _currIdx = 0
             _seekBar.max = _cardsCount - 1
-            _seekBar.progress = 0
 
             _textMin.text = "1"
-            _textCurr.text = "1"
             _textMax.text = _cards.size.toString()
 
-            // TODO: setup events here
+            _currIdx = 0
+            syncUI()
+
+            _buttonNext.setOnClickListener { next() }
+            _buttonPrev.setOnClickListener { prev() }
+
+            _seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(bar: SeekBar?, pos: Int, fromUser: Boolean) {
+                    if (!fromUser)
+                        return
+                    setPos(pos)
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) { }
+                override fun onStopTrackingTouch(p0: SeekBar?) { }
+            })
 
             _ctx.onCurrCardChanged()
+        }
+
+        fun next() {
+            setPos(_currIdx + 1)
+        }
+
+        private fun prev() {
+            setPos(_currIdx - 1)
+        }
+
+        private fun setPos(index : Int) {
+            if (index < 0 || index >= _cardsCount - 1)
+                return
+
+            _currIdx = index
+            syncUI()
+            _ctx.onCurrCardChanged()
+        }
+
+        private fun syncUI() {
+            _seekBar.progress = _currIdx
+            _textCurr.text = (_currIdx + 1).toString()
         }
     }
 }
