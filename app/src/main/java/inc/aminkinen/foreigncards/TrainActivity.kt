@@ -3,7 +3,6 @@ package inc.aminkinen.foreigncards
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
@@ -75,6 +74,7 @@ class TrainActivity : AppCompatActivity() {
             if (!_group.text.toString().isEmpty())
                 _currCard.GroupId = Integer.parseInt(_group.text.toString())
 
+            Log.info("Update card: $_currCard")
             _db.updateCard(_currCard)
         }
     }
@@ -82,6 +82,8 @@ class TrainActivity : AppCompatActivity() {
     private fun setupShowing() {
         val show = findViewById<Button>(R.id.at_button_show)
         show.setOnClickListener {
+            Log.info("Show card: $_currCard")
+
             _transl.setText(_currCard.Transl)
             _transc.setText(_currCard.Transc)
             _wasShowed = true
@@ -89,6 +91,8 @@ class TrainActivity : AppCompatActivity() {
     }
 
     private fun onCurrCardChanged() {
+        Log.info("Show new card: $_currCard")
+
         _word.setText(_currCard.Word)
         _group.setText(_currCard.GroupId.toString())
         _wasShowed = false
@@ -132,6 +136,8 @@ class TrainActivity : AppCompatActivity() {
                 override fun onProgressChanged(bar: SeekBar?, pos: Int, fromUser: Boolean) {
                     if (!fromUser)
                         return
+
+                    Log.info("Seek bar was moved")
                     setPos(pos)
                 }
 
@@ -143,10 +149,12 @@ class TrainActivity : AppCompatActivity() {
         }
 
         fun next() {
+            Log.info("Move next")
             setPos(_currIdx + 1)
         }
 
         private fun prev() {
+            Log.info("Move prev")
             setPos(_currIdx - 1)
         }
 
@@ -154,6 +162,7 @@ class TrainActivity : AppCompatActivity() {
             if (index < 0 || index >= _cardsCount - 1)
                 return
 
+            Log.info("New position: $index")
             _currIdx = index
             syncUI()
             _ctx.onCurrCardChanged()
