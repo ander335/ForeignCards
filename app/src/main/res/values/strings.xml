@@ -9,6 +9,10 @@
     <string name="button_next">Next</string>
     <string name="button_prev">Prev</string>
     <string name="button_show">Show</string>
+    <string name="dialog_title_info">Info</string>
+
+    <!-- activity main -->
+    <string name="activity_main_train_empty_cards">[TBD] The deck is empty. Change rain deck.</string>
 
     <!-- activity add -->
     <string name="activity_add_word_hint">Word</string>

@@ -175,6 +175,6 @@ class TrainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val Log : Logger = Logger("AddActivity")
+        private val Log : Logger = Logger("TrainActivity")
     }
 }
