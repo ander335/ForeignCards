@@ -37,7 +37,7 @@ class TrainActivity : AppCompatActivity() {
 
         val close = findViewById<Button>(R.id.at_button_close)
         close.setOnClickListener {
-            Log.i("TrainActivity", "Close button was clicked")
+            Log.info("Close button was clicked")
             goToMain()
         }
     }
@@ -53,7 +53,7 @@ class TrainActivity : AppCompatActivity() {
         move2.text = String.format(resources.getString(R.string.at_button_move_to_template), group2)
 
         val moveFunc = { group : Int ->
-            Log.i("TrainActivity", "Move button was clicked, move to $group")
+            Log.info("Move button was clicked, move to $group")
             _currCard.GroupId = group
             _db.updateCard(_currCard)
 
@@ -95,7 +95,7 @@ class TrainActivity : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        Log.i("TrainActivity", "Switch to main activity")
+        Log.info("Switch to main activity")
         val i = Intent(this@TrainActivity, MainActivity::class.java)
         startActivity(i)
     }
@@ -163,5 +163,9 @@ class TrainActivity : AppCompatActivity() {
             _seekBar.progress = _currIdx
             _textCurr.text = (_currIdx + 1).toString()
         }
+    }
+
+    companion object {
+        private val Log : Logger = Logger("AddActivity")
     }
 }
