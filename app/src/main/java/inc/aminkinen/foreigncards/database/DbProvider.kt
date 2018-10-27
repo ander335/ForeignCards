@@ -16,18 +16,17 @@ class DbProvider(ctx : Context) {
     private val db: SQLiteDatabase = init(ctx)
 
     private fun init(ctx : Context) : SQLiteDatabase {
-        val mDBHelper = DbHelper(ctx)
-
         try {
-            mDBHelper.updateDataBase(ctx)
-        } catch (mIOException: IOException) {
-            throw Error("UnableToUpdateDatabase")
-        }
+            val helper = DbHelper(ctx)
+            val db = helper.writableDatabase
+            if (!helper.needUpdate)
+                return db
 
-        try {
-            return mDBHelper.writableDatabase
-        } catch (mSQLException: SQLException) {
-            throw mSQLException
+            db.close()
+            helper.updateDataBase(ctx)
+            return helper.writableDatabase
+        } catch (ex: Exception) {
+            throw Error("Unable to mount database", ex)
         }
     }
 

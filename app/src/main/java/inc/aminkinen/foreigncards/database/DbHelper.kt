@@ -9,25 +9,26 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) {
-    private var mNeedUpdate = false
+    var needUpdate = false
 
     init {
-        DB_PATH = "/data/data/${ctx.packageName}/databases/$DB_NAME"
+        val dbDir = "/data/data/${ctx.packageName}/databases"
+        val dir = File(dbDir)
+        if (!dir.exists())
+            dir.mkdir()
+
+        DB_PATH = "$dbDir/$DB_NAME"
 
         copyDataBase(ctx)
     }
 
     @Throws(IOException::class)
     fun updateDataBase(ctx: Context) {
-        if (mNeedUpdate) {
-            val dbFile = File(DB_PATH)
-            if (dbFile.exists())
-                dbFile.delete()
+        val dbFile = File(DB_PATH)
+        if (dbFile.exists())
+            dbFile.delete()
 
-            copyDataBase(ctx)
-
-            mNeedUpdate = false
-        }
+        copyDataBase(ctx)
     }
 
     private fun copyDataBase(ctx: Context) {
@@ -49,8 +50,8 @@ class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) 
 
         do {
             val len = input.read(buff)
-            if (len == 0)
-                break;
+            if (len <= 0)
+                break
 
             output.write(buff, 0, len)
         } while (true)
@@ -64,13 +65,14 @@ class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) 
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (newVersion > oldVersion)
-            mNeedUpdate = true
+        if (newVersion > oldVersion) {
+            needUpdate = true
+        }
     }
 
     companion object {
         private const val DB_NAME = "cards.db"
         private var DB_PATH = ""
-        private const val DB_VERSION = 2
+        private const val DB_VERSION = 7
     }
 }
