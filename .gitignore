@@ -11,3 +11,6 @@
 /captures
 .externalNativeBuild
 app/src/main/assets/cards.db
+app/release/app-release.apk
+app/release/output.json
+app/src/main/assets/cards.db

@@ -15,33 +15,36 @@ class TrainActivity : AppCompatActivity() {
     private val _db : DbProvider = DbProvider.Instance
     private val _settings : Settings = _db.getSettings()
 
-    private val _cards : Navigator = Navigator(this, _db.getCards(_settings.GroupIdForTraining))
-    private val _currCard : Card get() = _cards.currCard
-
-    private val _word = findViewById<EditText>(R.id.text_word)
-    private val _transl = findViewById<EditText>(R.id.text_transl)
-    private val _transc = findViewById<EditText>(R.id.text_transc)
-    private val _group = findViewById<EditText>(R.id.text_group)
-
     private var _wasShowed : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_train)
 
-        _cards.setup()
-        setupMoving()
-        setupShowing()
-        setupUpdating()
+        val texts = Texts(this)
+
+        val cards = Navigator(this, texts, _db.getCards(_settings.GroupIdForTraining))
+        cards.setup()
+
+        setupMoving(cards)
+        setupShowing(cards, texts)
+        setupUpdating(cards, texts)
 
         val close = findViewById<Button>(R.id.at_button_close)
         close.setOnClickListener {
             Log.info("Close button was clicked")
             goToMain()
         }
+        val remove = findViewById<Button>(R.id.at_button_remove)
+        remove.setOnClickListener {
+            Log.info("Remove button was clicked, remove ${cards.currCard}")
+
+            _db.removeCard(cards.currCard.Id);
+            cards.next()
+        }
     }
 
-    private fun setupMoving() {
+    private fun setupMoving(cards : Navigator) {
         val group1 = _settings.GroupIdForMoving1
         val group2 = _settings.GroupIdForMoving2
 
@@ -53,48 +56,54 @@ class TrainActivity : AppCompatActivity() {
 
         val moveFunc = { group : Int ->
             Log.info("Move button was clicked, move to $group")
-            _currCard.GroupId = group
-            _db.updateCard(_currCard)
+            cards.currCard.GroupId = group
+            _db.updateCard(cards.currCard)
 
-            _cards.next()
+            cards.next()
         }
 
         move1.setOnClickListener { moveFunc(group1) }
         move2.setOnClickListener { moveFunc(group2) }
     }
 
-    private fun setupUpdating() {
+    private fun setupUpdating(cards : Navigator, texts: Texts) {
         val update = findViewById<Button>(R.id.at_button_update)
         update.setOnClickListener {
-            _currCard.Word = _word.text.toString()
+            val currCard = cards.currCard
+            currCard.Word = texts.word.text.toString()
             if (_wasShowed) {
-                _currCard.Transl = _transl.text.toString()
-                _currCard.Transc = _transc.text.toString()
+                currCard.Transl = texts.transl.text.toString()
+                currCard.Transc = texts.transc.text.toString()
             }
-            if (!_group.text.toString().isEmpty())
-                _currCard.GroupId = Integer.parseInt(_group.text.toString())
+            if (!texts.group.text.toString().isEmpty())
+                currCard.GroupId = Integer.parseInt(texts.group.text.toString())
 
-            Log.info("Update card: $_currCard")
-            _db.updateCard(_currCard)
+            Log.info("Update card: $currCard")
+            _db.updateCard(currCard)
         }
     }
 
-    private fun setupShowing() {
+    private fun setupShowing(cards : Navigator, texts: Texts) {
         val show = findViewById<Button>(R.id.at_button_show)
         show.setOnClickListener {
-            Log.info("Show card: $_currCard")
+            val currCard = cards.currCard
+            Log.info("Show card: $currCard")
 
-            _transl.setText(_currCard.Transl)
-            _transc.setText(_currCard.Transc)
+            texts.transl.setText(currCard.Transl)
+            texts.transc.setText(currCard.Transc)
             _wasShowed = true
         }
     }
 
-    private fun onCurrCardChanged() {
-        Log.info("Show new card: $_currCard")
+    private fun onCurrCardChanged(cards : Navigator, texts: Texts) {
+        val currCard = cards.currCard
+        Log.info("Show new card: $currCard")
 
-        _word.setText(_currCard.Word)
-        _group.setText(_currCard.GroupId.toString())
+        texts.word.setText(currCard.Word)
+        texts.group.setText(currCard.GroupId.toString())
+
+        texts.transl.setText("")
+        texts.transc.setText("")
         _wasShowed = false
     }
 
@@ -104,7 +113,7 @@ class TrainActivity : AppCompatActivity() {
         startActivity(i)
     }
 
-    class Navigator(private val _ctx : TrainActivity, private val _cards : ArrayList<Card>) {
+    class Navigator(private val _ctx : TrainActivity, private val _texts: Texts, private val _cards : ArrayList<Card>) {
         private var _currIdx : Int = -1
         private val _cardsCount : Int = _cards.size
 
@@ -145,7 +154,7 @@ class TrainActivity : AppCompatActivity() {
                 override fun onStopTrackingTouch(p0: SeekBar?) { }
             })
 
-            _ctx.onCurrCardChanged()
+            _ctx.onCurrCardChanged(this, _texts)
         }
 
         fun next() {
@@ -159,19 +168,26 @@ class TrainActivity : AppCompatActivity() {
         }
 
         private fun setPos(index : Int) {
-            if (index < 0 || index >= _cardsCount - 1)
+            if (index < 0 || index >= _cardsCount)
                 return
 
             Log.info("New position: $index")
             _currIdx = index
             syncUI()
-            _ctx.onCurrCardChanged()
+            _ctx.onCurrCardChanged(this, _texts)
         }
 
         private fun syncUI() {
             _seekBar.progress = _currIdx
             _textCurr.text = (_currIdx + 1).toString()
         }
+    }
+
+    class Texts(ctx : TrainActivity) {
+        val word = ctx.findViewById<EditText>(R.id.text_word)
+        val transl = ctx.findViewById<EditText>(R.id.text_transl)
+        val transc = ctx.findViewById<EditText>(R.id.text_transc)
+        val group = ctx.findViewById<EditText>(R.id.text_group)
     }
 
     companion object {

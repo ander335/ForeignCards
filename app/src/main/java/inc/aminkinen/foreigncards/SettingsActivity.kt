@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
+import android.widget.TextView
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Settings
 
@@ -36,11 +37,13 @@ class SettingsActivity : AppCompatActivity() {
         val training = findViewById<EditText>(R.id.text_group_for_training)
         val moving1 = findViewById<EditText>(R.id.text_group_for_moving_1)
         val moving2 = findViewById<EditText>(R.id.text_group_for_moving_2)
+        val count = findViewById<TextView>(R.id.text_count)
 
         adding.setText("${settings.GroupIdForAdding}")
         training.setText("${settings.GroupIdForTraining}")
         moving1.setText("${settings.GroupIdForMoving1}")
         moving2.setText("${settings.GroupIdForMoving2}")
+        count.text = db.cardsCount().toString()
 
         adding.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
             Log.info("Change adding group: $g (old: ${s.GroupIdForAdding})")

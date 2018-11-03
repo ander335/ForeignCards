@@ -119,4 +119,16 @@
         app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
         app:layout_constraintTop_toBottomOf="@+id/text_group_for_moving_2" />
 
+    <TextView
+        android:id="@+id/text_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_group_for_training" />
+
 </android.support.constraint.ConstraintLayout>
