@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
 import inc.aminkinen.foreigncards.database.DbProvider
+import inc.aminkinen.foreigncards.entities.Language
 import inc.aminkinen.foreigncards.entities.Settings
 
 
@@ -37,13 +38,15 @@ class SettingsActivity : AppCompatActivity() {
         val training = findViewById<EditText>(R.id.text_group_for_training)
         val moving1 = findViewById<EditText>(R.id.text_group_for_moving_1)
         val moving2 = findViewById<EditText>(R.id.text_group_for_moving_2)
+        val lang = findViewById<EditText>(R.id.text_current_language)
         val count = findViewById<TextView>(R.id.text_count)
 
         adding.setText("${settings.GroupIdForAdding}")
         training.setText("${settings.GroupIdForTraining}")
         moving1.setText("${settings.GroupIdForMoving1}")
         moving2.setText("${settings.GroupIdForMoving2}")
-        count.text = db.cardsCount().toString()
+        lang.setText("${settings.CurrentLanguage.value}")
+        count.text = "${settings.CurrentLanguage}: ${db.cardsCount(settings.CurrentLanguage)}"
 
         adding.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
             Log.info("Change adding group: $g (old: ${s.GroupIdForAdding})")
@@ -63,6 +66,14 @@ class SettingsActivity : AppCompatActivity() {
         moving2.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
             Log.info("Change moving2 group: $g (old: ${s.GroupIdForMoving2})")
             s.GroupIdForMoving2 = g
+            s
+        })
+        lang.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+            val newLang = Language.fromInt(g)
+            count.text = "${newLang}: ${db.cardsCount(newLang)}"
+
+            Log.info("Change current language: $newLang (old: ${s.CurrentLanguage})")
+            s.CurrentLanguage = newLang
             s
         })
 

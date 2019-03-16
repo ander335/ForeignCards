@@ -23,7 +23,7 @@ class TrainActivity : AppCompatActivity() {
 
         val texts = Texts(this)
 
-        val cards = Navigator(this, texts, _db.getCards(_settings.GroupIdForTraining))
+        val cards = Navigator(this, texts, _db.getCards(_settings.GroupIdForTraining, _settings.CurrentLanguage))
         cards.setup()
 
         setupMoving(cards)
@@ -74,6 +74,7 @@ class TrainActivity : AppCompatActivity() {
             if (_wasShowed) {
                 currCard.Transl = texts.transl.text.toString()
                 currCard.Transc = texts.transc.text.toString()
+                currCard.Example = texts.example.text.toString()
             }
             if (!texts.group.text.toString().isEmpty())
                 currCard.GroupId = Integer.parseInt(texts.group.text.toString())
@@ -91,6 +92,7 @@ class TrainActivity : AppCompatActivity() {
 
             texts.transl.setText(currCard.Transl)
             texts.transc.setText(currCard.Transc)
+            texts.example.setText(currCard.Example)
             _wasShowed = true
         }
     }
@@ -104,6 +106,7 @@ class TrainActivity : AppCompatActivity() {
 
         texts.transl.setText("")
         texts.transc.setText("")
+        texts.example.setText("")
         _wasShowed = false
     }
 
@@ -188,6 +191,7 @@ class TrainActivity : AppCompatActivity() {
         val transl = ctx.findViewById<EditText>(R.id.text_transl)
         val transc = ctx.findViewById<EditText>(R.id.text_transc)
         val group = ctx.findViewById<EditText>(R.id.text_group)
+        val example = ctx.findViewById<EditText>(R.id.text_example)
     }
 
     companion object {

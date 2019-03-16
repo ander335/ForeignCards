@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         // TODO: optimize
         val db : DbProvider = DbProvider.Instance
         val settings : Settings = db.getSettings()
-        val cardsCount = db.getCards(settings.GroupIdForTraining).size
+        val cardsCount = db.getCards(settings.GroupIdForTraining, settings.CurrentLanguage).size
         if (cardsCount == 0) {
             Log.info("Train deck is empty, show message!")
 

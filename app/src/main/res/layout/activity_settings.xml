@@ -10,23 +10,23 @@
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/activity_settings_group_for_adding_label"
         app:layout_constraintBottom_toBottomOf="@+id/text_group_for_adding"
         app:layout_constraintEnd_toStartOf="@+id/text_group_for_adding"
         app:layout_constraintTop_toTopOf="@+id/text_group_for_adding"
-        app:layout_constraintVertical_bias="0.58000004" />
+        app:layout_constraintVertical_bias="0.571" />
 
     <EditText
         android:id="@+id/text_group_for_adding"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:layout_marginEnd="37dp"
+        android:layout_marginEnd="39dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:inputType="textPersonName|number"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/text_group_for_moving_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,35 +36,36 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/activity_settings_group_for_moving_1_label"
         app:layout_constraintBottom_toBottomOf="@+id/text_group_for_moving_1"
         app:layout_constraintEnd_toStartOf="@+id/text_group_for_moving_1"
         app:layout_constraintTop_toTopOf="@+id/text_group_for_moving_1"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/activity_settings_group_for_moving_2_label"
         app:layout_constraintBottom_toBottomOf="@+id/text_group_for_moving_2"
         app:layout_constraintEnd_toStartOf="@+id/text_group_for_moving_2"
-        app:layout_constraintTop_toTopOf="@+id/text_group_for_moving_2" />
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_moving_2"
+        app:layout_constraintVertical_bias="0.4" />
 
     <EditText
         android:id="@+id/text_group_for_moving_1"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName|number"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/text_group_for_moving_2"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="1.0"
@@ -73,12 +74,12 @@
 
     <EditText
         android:id="@+id/text_group_for_moving_2"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName|number"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
@@ -99,21 +100,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/activity_settings_group_for_training_label"
         app:layout_constraintBottom_toBottomOf="@+id/text_group_for_training"
         app:layout_constraintEnd_toStartOf="@+id/text_group_for_training"
-        app:layout_constraintTop_toTopOf="@+id/text_group_for_training" />
+        app:layout_constraintTop_toTopOf="@+id/text_group_for_training"
+        app:layout_constraintVertical_bias="0.6" />
 
     <EditText
         android:id="@+id/text_group_for_training"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
@@ -125,10 +127,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_current_language" />
+
+    <EditText
+        android:id="@+id/text_current_language"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
         app:layout_constraintTop_toBottomOf="@+id/text_group_for_training" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="8dp"
+        android:text="Current language:"
+        app:layout_constraintBottom_toBottomOf="@+id/text_current_language"
+        app:layout_constraintEnd_toStartOf="@+id/text_current_language"
+        app:layout_constraintTop_toTopOf="@+id/text_current_language"
+        app:layout_constraintVertical_bias="0.6" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,4 +5,5 @@ class Card(val Id : Int,
            Transl: String,
            Transc: String,
            Example: String,
-           GroupId: Int) : CardData(Word, Transl, Transc, Example, GroupId)
+           GroupId: Int,
+           Lang: Language) : CardData(Word, Transl, Transc, Example, GroupId, Lang)

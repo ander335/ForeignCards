@@ -17,6 +17,7 @@ class AddActivity : AppCompatActivity() {
         val word = findViewById<EditText>(R.id.text_word)
         val transl = findViewById<EditText>(R.id.text_transl)
         val transc = findViewById<EditText>(R.id.text_transc)
+        val example = findViewById<EditText>(R.id.text_example)
 
         val close = findViewById<View>(R.id.aa_button_close)
         close.setOnClickListener {
@@ -27,14 +28,15 @@ class AddActivity : AppCompatActivity() {
         val add = findViewById<View>(R.id.aa_button_add)
         add.setOnClickListener {
             Log.info("Add button was clicked")
-            val group = DbProvider.Instance.getSettings().GroupIdForAdding
+            val settings = DbProvider.Instance.getSettings()
 
             val c = CardData(
                     word.text.toString(),
                     transl.text.toString(),
                     transc.text.toString(),
-                    "", // TODO: example
-                    group)
+                    example.text.toString(),
+                    settings.GroupIdForAdding,
+                    settings.CurrentLanguage)
 
             Log.info("Add card: $c")
             DbProvider.Instance.addCard(c)

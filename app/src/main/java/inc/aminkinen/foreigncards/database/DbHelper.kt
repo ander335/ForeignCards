@@ -73,6 +73,6 @@ class DbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DB_NAME, null, DB_VERSION) 
     companion object {
         private const val DB_NAME = "cards.db"
         private var DB_PATH = ""
-        private const val DB_VERSION = 9
+        private const val DB_VERSION = 10
     }
 }

@@ -13,6 +13,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="@string/activity_add_word_hint"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/text_transl"
         app:layout_constraintEnd_toEndOf="@+id/text_transc"
@@ -26,8 +27,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/activity_add_translation_hint"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/text_transc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +43,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/activity_add_transcription_hint"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/at_button_update"
         app:layout_constraintStart_toStartOf="@+id/text_transl"
@@ -122,12 +125,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:text="@string/at_button_move_to"
         app:layout_constraintEnd_toStartOf="@+id/at_button_move_2"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="@+id/text_transl"
-        app:layout_constraintTop_toBottomOf="@+id/text_transc" />
+        app:layout_constraintTop_toBottomOf="@+id/text_example" />
 
     <Button
         android:id="@+id/at_button_move_2"
@@ -170,7 +173,7 @@
         android:layout_height="18dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/text_transl"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/text_transl"
@@ -211,5 +214,19 @@
         app:layout_constraintEnd_toEndOf="@+id/seek_bar_position"
         app:layout_constraintTop_toTopOf="@+id/text_num_curr"
         app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/text_example"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/activity_add_example_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_transc" />
 
 </android.support.constraint.ConstraintLayout>
