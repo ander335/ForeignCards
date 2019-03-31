@@ -5,10 +5,7 @@ import android.content.Context
 import android.database.DatabaseUtils
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
-import inc.aminkinen.foreigncards.entities.Card
-import inc.aminkinen.foreigncards.entities.CardData
-import inc.aminkinen.foreigncards.entities.Language
-import inc.aminkinen.foreigncards.entities.Settings
+import inc.aminkinen.foreigncards.entities.*
 import java.io.IOException
 
 import java.util.ArrayList
@@ -103,7 +100,8 @@ class DbProvider(ctx : Context) {
                 c.getInt(c.getColumnIndex("GroupIdForTraining")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving1")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving2")),
-                Language.fromInt(c.getInt(c.getColumnIndex("CurrentLanguage"))))
+                Language.fromInt(c.getInt(c.getColumnIndex("CurrentLanguage"))),
+                TrainMode.fromInt(c.getInt(c.getColumnIndex("TrainMode"))))
         c.close()
 
         return result
@@ -116,6 +114,7 @@ class DbProvider(ctx : Context) {
         v.put("GroupIdForMoving1", s.GroupIdForMoving1)
         v.put("GroupIdForMoving2", s.GroupIdForMoving2)
         v.put("CurrentLanguage", s.CurrentLanguage.value)
+        v.put("TrainMode", s.TrainMode_.value)
 
         db.update("Settings", v, null, null)
     }

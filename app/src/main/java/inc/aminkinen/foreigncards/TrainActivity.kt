@@ -10,6 +10,7 @@ import android.widget.TextView
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Card
 import inc.aminkinen.foreigncards.entities.Settings
+import inc.aminkinen.foreigncards.entities.TrainMode
 
 class TrainActivity : AppCompatActivity() {
     private val _db : DbProvider = DbProvider.Instance
@@ -90,6 +91,7 @@ class TrainActivity : AppCompatActivity() {
             val currCard = cards.currCard
             Log.info("Show card: $currCard")
 
+            texts.word.setText(currCard.Word)
             texts.transl.setText(currCard.Transl)
             texts.transc.setText(currCard.Transc)
             texts.example.setText(currCard.Example)
@@ -101,12 +103,17 @@ class TrainActivity : AppCompatActivity() {
         val currCard = cards.currCard
         Log.info("Show new card: $currCard")
 
-        texts.word.setText(currCard.Word)
         texts.group.setText(currCard.GroupId.toString())
-
+        texts.word.setText("")
         texts.transl.setText("")
         texts.transc.setText("")
         texts.example.setText("")
+
+        if (_settings.TrainMode_ == TrainMode.FirstlyWord)
+            texts.word.setText(currCard.Word)
+        else
+            texts.transl.setText(currCard.Transl)
+
         _wasShowed = false
     }
 

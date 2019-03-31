@@ -11,6 +11,7 @@ import android.widget.TextView
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Language
 import inc.aminkinen.foreigncards.entities.Settings
+import inc.aminkinen.foreigncards.entities.TrainMode
 
 
 class TextWatcherEx(private val action : (g : Int, settings : Settings) -> Settings) : TextWatcher {
@@ -39,6 +40,7 @@ class SettingsActivity : AppCompatActivity() {
         val moving1 = findViewById<EditText>(R.id.text_group_for_moving_1)
         val moving2 = findViewById<EditText>(R.id.text_group_for_moving_2)
         val lang = findViewById<EditText>(R.id.text_current_language)
+        val trainMode = findViewById<EditText>(R.id.text_train_mode)
         val count = findViewById<TextView>(R.id.text_count)
 
         adding.setText("${settings.GroupIdForAdding}")
@@ -46,6 +48,7 @@ class SettingsActivity : AppCompatActivity() {
         moving1.setText("${settings.GroupIdForMoving1}")
         moving2.setText("${settings.GroupIdForMoving2}")
         lang.setText("${settings.CurrentLanguage.value}")
+        trainMode.setText("${settings.TrainMode_.value}")
         count.text = "${settings.CurrentLanguage}: ${db.cardsCount(settings.CurrentLanguage)}"
 
         adding.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
@@ -74,6 +77,12 @@ class SettingsActivity : AppCompatActivity() {
 
             Log.info("Change current language: $newLang (old: ${s.CurrentLanguage})")
             s.CurrentLanguage = newLang
+            s
+        })
+        trainMode.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+            val newMode = TrainMode.fromInt(g)
+            Log.info("Change train mode: $newMode (old: ${s.TrainMode_})")
+            s.TrainMode_ = newMode
             s
         })
 

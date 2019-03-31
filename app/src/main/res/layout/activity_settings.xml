@@ -127,12 +127,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
-        app:layout_constraintTop_toBottomOf="@+id/text_current_language" />
+        app:layout_constraintTop_toBottomOf="@+id/text_train_mode" />
 
     <EditText
         android:id="@+id/text_current_language"
@@ -158,6 +158,32 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_current_language"
         app:layout_constraintEnd_toStartOf="@+id/text_current_language"
         app:layout_constraintTop_toTopOf="@+id/text_current_language"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <EditText
+        android:id="@+id/text_train_mode"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/text_group_for_adding"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_group_for_adding"
+        app:layout_constraintTop_toBottomOf="@+id/text_current_language" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="8dp"
+        android:text="Train mode:"
+        app:layout_constraintBottom_toBottomOf="@+id/text_train_mode"
+        app:layout_constraintEnd_toStartOf="@+id/text_train_mode"
+        app:layout_constraintTop_toTopOf="@+id/text_train_mode"
         app:layout_constraintVertical_bias="0.6" />
 
 </android.support.constraint.ConstraintLayout>
