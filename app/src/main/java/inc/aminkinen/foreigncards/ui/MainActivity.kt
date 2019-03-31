@@ -1,4 +1,4 @@
-package inc.aminkinen.foreigncards
+package inc.aminkinen.foreigncards.ui
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -7,8 +7,9 @@ import android.view.View
 import android.widget.*
 import android.widget.TextView
 import android.widget.ListView
-import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
+import inc.aminkinen.foreigncards.Logger
+import inc.aminkinen.foreigncards.R
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Settings
 

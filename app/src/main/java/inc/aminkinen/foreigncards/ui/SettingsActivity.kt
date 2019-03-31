@@ -1,4 +1,4 @@
-package inc.aminkinen.foreigncards
+package inc.aminkinen.foreigncards.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
+import inc.aminkinen.foreigncards.Logger
+import inc.aminkinen.foreigncards.R
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Language
 import inc.aminkinen.foreigncards.entities.Settings
@@ -51,27 +53,27 @@ class SettingsActivity : AppCompatActivity() {
         trainMode.setText("${settings.TrainMode_.value}")
         count.text = "${settings.CurrentLanguage}: ${db.cardsCount(settings.CurrentLanguage)}"
 
-        adding.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        adding.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             Log.info("Change adding group: $g (old: ${s.GroupIdForAdding})")
             s.GroupIdForAdding = g
             s
         })
-        training.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        training.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             Log.info("Change training group: $g (old: ${s.GroupIdForTraining})")
             s.GroupIdForTraining = g
             s
         })
-        moving1.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        moving1.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             Log.info("Change moving1 group: $g (old: ${s.GroupIdForMoving1})")
             s.GroupIdForMoving1 = g
             s
         })
-        moving2.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        moving2.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             Log.info("Change moving2 group: $g (old: ${s.GroupIdForMoving2})")
             s.GroupIdForMoving2 = g
             s
         })
-        lang.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        lang.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             val newLang = Language.fromInt(g)
             count.text = "${newLang}: ${db.cardsCount(newLang)}"
 
@@ -79,7 +81,7 @@ class SettingsActivity : AppCompatActivity() {
             s.CurrentLanguage = newLang
             s
         })
-        trainMode.addTextChangedListener(TextWatcherEx { g : Int, s : Settings ->
+        trainMode.addTextChangedListener(TextWatcherEx { g: Int, s: Settings ->
             val newMode = TrainMode.fromInt(g)
             Log.info("Change train mode: $newMode (old: ${s.TrainMode_})")
             s.TrainMode_ = newMode

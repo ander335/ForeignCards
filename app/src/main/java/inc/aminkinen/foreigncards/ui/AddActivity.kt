@@ -1,10 +1,12 @@
-package inc.aminkinen.foreigncards
+package inc.aminkinen.foreigncards.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.content.Intent
 import android.widget.EditText
+import inc.aminkinen.foreigncards.Logger
+import inc.aminkinen.foreigncards.R
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.CardData
 
