@@ -11,9 +11,8 @@ import android.widget.TextView
 import inc.aminkinen.foreigncards.Logger
 import inc.aminkinen.foreigncards.R
 import inc.aminkinen.foreigncards.database.DbProvider
-import inc.aminkinen.foreigncards.entities.Language
+import inc.aminkinen.foreigncards.entities.enums.*
 import inc.aminkinen.foreigncards.entities.Settings
-import inc.aminkinen.foreigncards.entities.TrainMode
 
 
 class TextWatcherEx(private val action : (g : Int, settings : Settings) -> Settings) : TextWatcher {

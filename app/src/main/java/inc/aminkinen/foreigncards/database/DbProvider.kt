@@ -3,10 +3,9 @@ package inc.aminkinen.foreigncards.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.DatabaseUtils
-import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import inc.aminkinen.foreigncards.entities.*
-import java.io.IOException
+import inc.aminkinen.foreigncards.entities.enums.*
 
 import java.util.ArrayList
 
@@ -117,6 +116,24 @@ class DbProvider(ctx : Context) {
         v.put("TrainMode", s.TrainMode_.value)
 
         db.update("Settings", v, null, null)
+    }
+
+    fun getGroupsFilling(Lang: Language): Map<Int, Int> {
+        val result = HashMap<Int, Int>()
+        val q = "SELECT GroupId, COUNT(*) AS WordsCount FROM Cards WHERE Language = ${Lang.value} GROUP BY GroupId"
+
+        val c = db.rawQuery(q, null)
+        c.moveToFirst()
+        while (!c.isAfterLast) {
+            val groupId = c.getInt(c.getColumnIndex("GroupId"))
+            val count = c.getInt(c.getColumnIndex("WordsCount"))
+
+            result.put(groupId, count)
+            c.moveToNext()
+        }
+        c.close()
+
+        return result
     }
 
     companion object {

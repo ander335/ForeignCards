@@ -12,13 +12,19 @@ import inc.aminkinen.foreigncards.R
 import inc.aminkinen.foreigncards.database.DbProvider
 import inc.aminkinen.foreigncards.entities.Card
 import inc.aminkinen.foreigncards.entities.Settings
-import inc.aminkinen.foreigncards.entities.TrainMode
+import inc.aminkinen.foreigncards.entities.enums.TrainMode
+import inc.aminkinen.foreigncards.logic.GroupManager
 
 class TrainActivity : AppCompatActivity() {
     private val _db : DbProvider = DbProvider.Instance
     private val _settings : Settings = _db.getSettings()
 
     private var _wasShowed : Boolean = false
+
+    private var _groupIdMoveUp : Int? = null
+    private var _groupIdMoveDown : Int? = null
+
+    private var _groupFilling : Map<Int, Int> = _db.getGroupsFilling(_settings.CurrentLanguage)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,25 +54,46 @@ class TrainActivity : AppCompatActivity() {
     }
 
     private fun setupMoving(cards : Navigator) {
-        val group1 = _settings.GroupIdForMoving1
-        val group2 = _settings.GroupIdForMoving2
+        _groupIdMoveUp = GroupManager.getUpGroup(cards.currCard.GroupId, _groupFilling)
+        _groupIdMoveDown = GroupManager.getDownGroup(cards.currCard.GroupId, _groupFilling)
 
-        val move1 = findViewById<Button>(R.id.at_button_move_1)
+        setupUpMoving(cards, _groupIdMoveUp)
+        setupDownMoving(cards, _groupIdMoveDown)
+    }
+
+    private fun setupUpMoving(cards : Navigator, upId: Int?) {
         val move2 = findViewById<Button>(R.id.at_button_move_2)
-
-        move1.text = String.format(resources.getString(R.string.at_button_move_to_template), group1)
-        move2.text = String.format(resources.getString(R.string.at_button_move_to_template), group2)
-
-        val moveFunc = { group : Int ->
-            Log.info("Move button was clicked, move to $group")
-            cards.currCard.GroupId = group
-            _db.updateCard(cards.currCard)
-
-            cards.next()
+        if (upId == null) {
+            move2.text = ""
+            move2.setOnClickListener { }
+            return
         }
 
-        move1.setOnClickListener { moveFunc(group1) }
-        move2.setOnClickListener { moveFunc(group2) }
+        move2.text = String.format(resources.getString(R.string.at_button_move_to_template), upId)
+        move2.setOnClickListener { MoveCard(cards, upId) }
+    }
+
+    private fun setupDownMoving(cards : Navigator, downId: Int?) {
+        val move1 = findViewById<Button>(R.id.at_button_move_1)
+        if (downId == null) {
+            move1.text = ""
+            move1.setOnClickListener { }
+            return
+        }
+
+        move1.text = String.format(resources.getString(R.string.at_button_move_to_template), downId)
+        move1.setOnClickListener { MoveCard(cards, downId) }
+    }
+
+    private fun MoveCard(cards : Navigator, id: Int) {
+        Log.info("Move button was clicked, move to $id")
+        cards.currCard.GroupId = id
+        _db.updateCard(cards.currCard)
+
+        // TODO: move to function
+        _groupFilling = _db.getGroupsFilling(_settings.CurrentLanguage)
+
+        cards.next()
     }
 
     private fun setupUpdating(cards : Navigator, texts: Texts) {
@@ -84,6 +111,9 @@ class TrainActivity : AppCompatActivity() {
 
             Log.info("Update card: $currCard")
             _db.updateCard(currCard)
+
+            // TODO: move to function
+            _groupFilling = _db.getGroupsFilling(_settings.CurrentLanguage)
         }
     }
 
@@ -115,6 +145,8 @@ class TrainActivity : AppCompatActivity() {
             texts.word.setText(currCard.Word)
         else
             texts.transl.setText(currCard.Transl)
+
+        setupMoving(cards)
 
         _wasShowed = false
     }

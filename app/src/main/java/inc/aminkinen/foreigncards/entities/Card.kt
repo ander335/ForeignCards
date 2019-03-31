@@ -1,5 +1,7 @@
 package inc.aminkinen.foreigncards.entities
 
+import inc.aminkinen.foreigncards.entities.enums.Language
+
 class Card(val Id : Int,
            Word: String,
            Transl: String,
