@@ -6,8 +6,7 @@ import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import inc.aminkinen.foreigncards.entities.*
 import inc.aminkinen.foreigncards.entities.enums.*
-
-import java.util.ArrayList
+import java.util.*
 
 class DbProvider(ctx : Context) {
     private val db: SQLiteDatabase = init(ctx)
@@ -40,8 +39,20 @@ class DbProvider(ctx : Context) {
         db.insert("Cards", null, v)
     }
 
+    fun addView(view: View) {
+        val v = ContentValues()
+        v.put("CardId", view.CardId)
+        v.put("Duration", view.Duration)
+        v.put("Time", view.Time)
+        if (view.MovingGroupId >= 0)
+            v.put("MovingGroupId", view.MovingGroupId)
+
+        db.insert("Views", null, v)
+    }
+
     fun removeCard(id: Int) {
         db.execSQL("DELETE FROM Cards WHERE Id = ?", arrayOf<Any>(id))
+        db.execSQL("DELETE FROM Views WHERE CardId = ?", arrayOf<Any>(id))
     }
 
     fun updateCard(c: Card) {
@@ -99,6 +110,7 @@ class DbProvider(ctx : Context) {
                 c.getInt(c.getColumnIndex("GroupIdForTraining")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving1")),
                 c.getInt(c.getColumnIndex("GroupIdForMoving2")),
+                c.getInt(c.getColumnIndex("GreenReceiveGroupId")),
                 Language.fromInt(c.getInt(c.getColumnIndex("CurrentLanguage"))),
                 TrainMode.fromInt(c.getInt(c.getColumnIndex("TrainMode"))))
         c.close()
@@ -112,6 +124,7 @@ class DbProvider(ctx : Context) {
         v.put("GroupIdForTraining", s.GroupIdForTraining)
         v.put("GroupIdForMoving1", s.GroupIdForMoving1)
         v.put("GroupIdForMoving2", s.GroupIdForMoving2)
+        v.put("GreenReceiveGroupId", s.GreenReceiveGroupId)
         v.put("CurrentLanguage", s.CurrentLanguage.value)
         v.put("TrainMode", s.TrainMode_.value)
 

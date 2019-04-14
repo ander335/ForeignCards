@@ -23,6 +23,25 @@ class GroupManager {
             return getSuitableGroupId(downKind, filling)
         }
 
+        fun findLowestGroup(groupKind: GroupKind, filling: Map<Int, Int>) : Int {
+            var minSize = Int.MAX_VALUE
+            var targetId = -1
+
+            val range = getKindRange(groupKind)
+            for (i in range.first until range.second) {
+                val size = filling.getOrElse(i) { 0 }
+                if (size == 0)
+                    return i
+
+                if (size < minSize) {
+                    minSize = size
+                    targetId = i
+                }
+            }
+
+            return targetId
+        }
+
         private fun getSuitableGroupId(groupKind: GroupKind, filling: Map<Int, Int>) : Int? {
             val threshold = getKindLimit(groupKind)
 

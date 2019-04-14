@@ -19,7 +19,7 @@ enum class GroupKind(var value: Int) {
     YellowRevise(2) {
         override fun toString() : String = "YellowRevise"
         override fun upKind() : GroupKind = Green
-        override fun downKind() : GroupKind = Red
+        override fun downKind() : GroupKind = Yellow
     },
     Green(3) {
         override fun toString() : String = "Green"

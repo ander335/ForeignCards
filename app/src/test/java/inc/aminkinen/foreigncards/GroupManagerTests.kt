@@ -1,5 +1,6 @@
 package inc.aminkinen.foreigncards
 
+import inc.aminkinen.foreigncards.entities.enums.GroupKind
 import inc.aminkinen.foreigncards.logic.GroupManager
 import org.junit.Test
 
@@ -89,5 +90,25 @@ class GroupManagerTests {
         filling[3] = 9
 
         assertEquals(3, GroupManager.getDownGroup(4, filling))
+    }
+
+    @Test
+    fun findLowestGroupTest1() {
+        val filling = HashMap<Int, Int>()
+        val range = GroupManager.getKindRange(GroupKind.Green)
+        filling[range.first] = 5
+        filling[range.first + 1] = 6
+
+        assertEquals(range.first + 2, GroupManager.findLowestGroup(GroupKind.Green, filling))
+    }
+
+    @Test
+    fun findLowestGroupTest2() {
+        val filling = HashMap<Int, Int>()
+        val range = GroupManager.getKindRange(GroupKind.Green)
+        for (i in range.first until range.second)
+            filling[i] = range.second - i
+
+        assertEquals(range.second - 1, GroupManager.findLowestGroup(GroupKind.Green, filling))
     }
 }
