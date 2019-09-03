@@ -9,6 +9,9 @@ enum class Language(var value: Int) {
     },
     Finish(1) {
         override fun toString() : String = "Finish"
+    },
+    Czech(2) {
+        override fun toString() : String = "Czech"
     };
 
     companion object {
